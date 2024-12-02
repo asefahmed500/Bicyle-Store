@@ -25,6 +25,14 @@ export const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+export const getOrders = async (req: Request, res: Response) => {
+  try {
+    const orders = await Order.find().populate('product'); // Populate product details
+    handleResponse(res, "Orders fetched successfully", orders);
+  } catch (error) {
+    handleError(res, "Failed to fetch orders", error, 400);
+  }
+};
 export const calculateRevenue = async (req: Request, res: Response) => {
   try {
     const revenue = await Order.aggregate([
